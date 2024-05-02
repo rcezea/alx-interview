@@ -9,7 +9,7 @@ def canUnlockAll(boxes):
     length = len(boxes)
     keys = {0}
     visited = set()
-    while 1:
+    while True:
         if not keys:
             return False
         index = keys.pop()
@@ -20,6 +20,8 @@ def canUnlockAll(boxes):
             for k in keys.copy():
                 keys.update(dict.fromkeys(boxes[k]))
                 visited.add(k)
+                if len(visited) == length:
+                    return True
                 keys.remove(k)
 
             if len(visited) == length:
