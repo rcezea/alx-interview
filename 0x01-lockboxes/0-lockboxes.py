@@ -23,6 +23,8 @@ def canUnlockAll(boxes):
                 keys.update(dict.fromkeys(boxes[k]))
                 visited.add(k)
                 # keys.remove(k)
+                if len(visited) == length:
+                    return True
 
             if len(visited) == length:
                 return True
