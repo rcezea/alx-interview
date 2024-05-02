@@ -6,6 +6,8 @@ def canUnlockAll(boxes):
     """Cracking the lock box"""
     if not type(boxes) is list:
         return 'not a list'
+    if not boxes:
+        return False
     length = len(boxes)
     keys = {0}
     visited = set()
