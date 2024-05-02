@@ -16,12 +16,12 @@ def canUnlockAll(boxes):
         index = keys.pop()
         if len(boxes[index]) == 0:
             continue
-        if index not in visited and index <= length:
+        if index not in visited and index < length:
             visited.add(index)
             keys.update(boxes[index])
 
             for k in keys.copy():
-                if len(boxes[k]) == 0 or k > length:
+                if len(boxes[k]) == 0 or k >= length:
                     continue
                 keys.update(dict.fromkeys(boxes[k]))
                 visited.add(k)
