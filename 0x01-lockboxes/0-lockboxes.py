@@ -10,26 +10,29 @@ def canUnlockAll(boxes):
     length = len(boxes)
     keys = {0}
     visited = set()
+
     while True:
         if not keys:
             return False
+
         index = keys.pop()
-        if len(boxes[index]) == 0:
+
+        if (index in visited or index >= length or
+                not isinstance(boxes[index], list)):
             continue
-        if index not in visited and index < length:
-            visited.add(index)
-            keys.update(boxes[index])
 
-            for k in keys.copy():
-                if len(boxes[k]) == 0 or k >= length:
-                    continue
-                keys.update(dict.fromkeys(boxes[k]))
-                visited.add(k)
+        visited.add(index)
+        keys.update(boxes[index])
+
+        for k in keys.copy():
+            if k >= length or not isinstance(boxes[k], list):
                 keys.remove(k)
-                if len(visited) == length:
-                    return True
-
+                continue
+            keys.update(boxes[k])
+            visited.add(k)
+            keys.remove(k)
             if len(visited) == length:
                 return True
-        else:
-            continue
+
+        if len(visited) == length:
+            return True
