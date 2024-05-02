@@ -6,8 +6,7 @@ def canUnlockAll(boxes):
     """Cracking the lock box"""
     if not type(boxes) is list:
         return 'not a list'
-    if not boxes:
-        return False
+
     length = len(boxes)
     keys = {0}
     visited = set()
@@ -15,14 +14,18 @@ def canUnlockAll(boxes):
         if not keys:
             return False
         index = keys.pop()
-        if index not in visited:
+        if len(boxes[index]) == 0:
+            continue
+        if index not in visited and index <= length:
             visited.add(index)
             keys.update(boxes[index])
 
             for k in keys.copy():
+                if len(boxes[k]) == 0 or k > length:
+                    continue
                 keys.update(dict.fromkeys(boxes[k]))
                 visited.add(k)
-                # keys.remove(k)
+                keys.remove(k)
                 if len(visited) == length:
                     return True
 
