@@ -2,7 +2,7 @@
 """Python module to 0. Minimum Operations"""
 
 
-def minOperations(n: int):
+def minOperations(n: int) -> int:
     """Return the minimum operation required to get n characters"""
     if n == 1:
         return 0
