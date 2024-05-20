@@ -2,6 +2,7 @@
 """ Module to parse strings from standard input """
 
 import sys
+import re
 
 status_counts = {}
 total_size = 0
@@ -17,8 +18,16 @@ def print_stats():
             print(f"{code}: {status_counts[code]}")
 
 
+log_pattern = re.compile(
+    r'^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3} - \[.*?\] '
+    r'"GET /projects/260 HTTP/1.1" (\d{3}) (\d+)$'
+)
+
 try:
     for line in sys.stdin:
+        match = log_pattern.match(line)
+        if not match:
+            continue
         parts = line.split()
         if len(parts) != 9:
             continue
