@@ -1,55 +1,75 @@
 #!/usr/bin/python3
-""" Module to parse strings from standard input """
-
 import sys
-import re
+import signal
 
-status_counts = {}
-total_size = 0
-valid_codes = {200, 301, 400, 401, 403, 404, 405, 500}
-lines_processed = 0
+# Dictionary to store the count of each status code
+status_codes_count = {}
+# Variable to store the total file size
+total_file_size = 0
+# List of valid status codes
+valid_status_codes = [200, 301, 400, 401, 403, 404, 405, 500]
+# Counter for the number of lines processed
+line_count = 0
 
 
 def print_stats():
-    """print the statistics"""
-    print(f"File size: {total_size}")
-    for code in sorted(status_counts):
-        if status_counts[code] > 0:
-            print(f"{code}: {status_counts[code]}")
+    """Print the current statistics."""
+    print("File size: {}".format(total_file_size))
+    for code in sorted(status_codes_count.keys()):
+        if status_codes_count[code] > 0:
+            print("{}: {}".format(code, status_codes_count[code]))
 
 
-log_pattern = re.compile(
-    r'^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3} - \[.*?\] '
-    r'"GET /projects/260 HTTP/1.1" (\d{3}) (\d+)$'
-)
+def signal_handler(sig, frame):
+    """Handle the keyboard interruption (CTRL + C)."""
+    print_stats()
+    sys.exit(0)
+
+
+# Register the signal handler for keyboard interruption
+signal.signal(signal.SIGINT, signal_handler)
 
 try:
     for line in sys.stdin:
+        # Split the line into components
+        parts = line.split()
+
+        # Check if the line format is correct
+        if len(parts) != 9:
+            continue
+
+        ip, dash, date, method, url, protocol, status_code, file_size = (
+            parts[0], parts[1], parts[2], parts[3],
+            parts[4], parts[6], parts[7], parts[8])
+
+        if (method != '"GET' or url != '/projects/260'
+                or protocol != 'HTTP/1.1"'):
+            continue
+
         try:
-            match = log_pattern.match(line)
-            if not match:
-                continue
-            parts = line.split()
-            if len(parts) != 9:
-                continue
+            # Convert status code and file size to integers
+            status_code = int(status_code)
+            file_size = int(file_size)
+        except ValueError:
+            continue
 
-            status_code = int(match.group(1))
-            file_size = int(match.group(2))
+        # Update the total file size
+        total_file_size += file_size
 
-            total_size += file_size
-            if status_code in valid_codes:
-                status_counts[status_code] = (
-                        status_counts.get(status_code, 0) + 1)
-        except (IndexError, ValueError, KeyError):
-            pass
+        # Update the count of the status code
+        if status_code in valid_status_codes:
+            if status_code not in status_codes_count:
+                status_codes_count[status_code] = 0
+            status_codes_count[status_code] += 1
 
-        lines_processed += 1
-        if lines_processed % 10 == 0:
+        # Increment the line counter
+        line_count += 1
+
+        # Every 10 lines, print the statistics
+        if line_count % 10 == 0:
             print_stats()
 
-except (KeyboardInterrupt, EOFError):
+except KeyboardInterrupt:
+    # Handle keyboard interruption gracefully
     print_stats()
-    sys.exit()
-
-finally:
-    print_stats()
+    sys.exit(0)
