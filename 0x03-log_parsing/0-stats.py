@@ -8,6 +8,7 @@ status_counts = {}
 total_size = 0
 valid_codes = {200, 301, 400, 401, 403, 404, 405, 500}
 lines_processed = 0
+input_received = False
 
 
 def print_stats():
@@ -25,6 +26,7 @@ log_pattern = re.compile(
 
 try:
     for line in sys.stdin:
+        input_received = True
         try:
             match = log_pattern.match(line)
             if not match:
@@ -52,4 +54,7 @@ except KeyboardInterrupt:
     raise
 
 finally:
-    print_stats()
+    if input_received:
+        print_stats()
+    else:
+        sys.exit()
