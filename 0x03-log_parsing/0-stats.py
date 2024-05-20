@@ -34,8 +34,10 @@ try:
         if len(parts) != 9:
             continue
 
-        method, url, protocol, status_code, file_size = parts[4], parts[5], parts[6], parts[7], parts[8]
-        if method != '"GET' or url != '/projects/260' or protocol != 'HTTP/1.1"':
+        (method, url, protocol, status_code,
+         file_size) = parts[4], parts[5], parts[6], parts[7], parts[8]
+        if (method != '"GET' or url != '/projects/260'
+                or protocol != 'HTTP/1.1"'):
             continue
 
         try:
