@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+""" python module to read std input"""
 import sys
 import signal
 
