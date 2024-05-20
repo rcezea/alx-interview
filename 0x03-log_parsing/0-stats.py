@@ -32,11 +32,8 @@ try:
         if len(parts) != 9:
             continue
 
-        try:
-            status_code = int(match.group(1))
-            file_size = int(match.group(2))
-        except ValueError:
-            continue
+        status_code = int(match.group(1))
+        file_size = int(match.group(2))
 
         total_size += file_size
         if status_code in valid_codes:
