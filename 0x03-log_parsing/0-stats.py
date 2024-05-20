@@ -25,14 +25,15 @@ log_pattern = re.compile(
 
 try:
     for line in sys.stdin:
-        try:
-            match = log_pattern.match(line)
-            if not match:
-                continue
-            parts = line.split()
-            if len(parts) != 9:
-                continue
+        lines_processed += 1
+        match = log_pattern.match(line)
+        if not match:
+            continue
+        parts = line.split()
+        if len(parts) != 9:
+            continue
 
+        try:
             status_code = int(match.group(1))
             file_size = int(match.group(2))
 
@@ -43,7 +44,6 @@ try:
         except (IndexError, ValueError, KeyError):
             continue
 
-        lines_processed += 1
         if lines_processed % 10 == 0:
             print_stats()
 
