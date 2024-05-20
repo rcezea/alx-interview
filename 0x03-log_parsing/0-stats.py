@@ -12,9 +12,9 @@ lines_processed = 0
 def print_stats():
     """print the statistics"""
     print(f"File size: {total_size}")
-    for stat_code in sorted(status_counts):
-        if status_counts[stat_code] > 0:
-            print(f"{stat_code}: {status_counts[stat_code]}")
+    for code in sorted(status_counts):
+        if status_counts[code] > 0:
+            print(f"{code}: {status_counts[code]}")
 
 
 try:
@@ -52,11 +52,5 @@ except KeyboardInterrupt:
     print_stats()
     sys.exit(0)
 
-except Exception as err:
-    pass
-
 finally:
-    print(f"File size: {total_size}")
-    for code in sorted(status_counts):
-        if status_counts[code] > 0:
-            print(f"{code}: {status_counts[code]}")
+    print_stats()
