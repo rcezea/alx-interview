@@ -12,9 +12,9 @@ lines_processed = 0
 def print_stats():
     """print the statistics"""
     print(f"File size: {total_size}")
-    for code in sorted(status_counts):
-        if status_counts[code] > 0:
-            print(f"{code}: {status_counts[code]}")
+    for stat_code in sorted(status_counts):
+        if status_counts[stat_code] > 0:
+            print(f"{stat_code}: {status_counts[stat_code]}")
 
 
 try:
