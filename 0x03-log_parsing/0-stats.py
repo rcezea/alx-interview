@@ -2,7 +2,6 @@
 """ Module to parse strings from standard input """
 
 import sys
-import signal
 
 status_counts = {}
 total_size = 0
@@ -18,15 +17,6 @@ def print_stats():
         if status_counts[code] > 0:
             print(f"{code}: {status_counts[code]}")
 
-
-def signal_handler(sig, frame):
-    """Handle the keyboard interruption (CTRL + C)."""
-    print_stats()
-    sys.exit(0)
-
-
-# Register the signal handler for keyboard interruption
-signal.signal(signal.SIGINT, signal_handler)
 
 try:
     for line in sys.stdin:
