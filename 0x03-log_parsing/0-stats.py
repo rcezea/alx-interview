@@ -32,20 +32,9 @@ try:
         if len(parts) != 9:
             continue
 
-        (method, url, protocol, status_code, file_size) = (
-            parts[4],
-            parts[5],
-            parts[6],
-            parts[7],
-            parts[8],
-        )
-        if (method != '"GET'
-                or url != "/projects/260" or protocol != 'HTTP/1.1"'):
-            continue
-
         try:
-            status_code = int(status_code)
-            file_size = int(file_size)
+            status_code = int(match.group(1))
+            file_size = int(match.group(2))
         except ValueError:
             continue
 
