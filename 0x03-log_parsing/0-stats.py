@@ -25,34 +25,23 @@ log_pattern = re.compile(
 
 try:
     for line in sys.stdin:
-        match = log_pattern.match(line)
-        if not match:
-            continue
-        parts = line.split()
-        if len(parts) != 9:
-            continue
-
-        method = parts[4]
-        url = parts[5]
-        protocol = parts[6]
-        file_size = parts[-1]
-        status_code = parts[-2]
-
-        if method != '"GET' or url != '/projects/260':
-            sys.exit()
-        if protocol != 'HTTP/1.1"':
-            sys.exit()
-
         try:
+            match = log_pattern.match(line)
+            if not match:
+                continue
+            parts = line.split()
+            if len(parts) != 9:
+                continue
+
             status_code = int(match.group(1))
             file_size = int(match.group(2))
-        except (IndexError, ValueError, KeyError):
-            pass
 
-        total_size += file_size
-        if status_code in valid_codes:
-            status_counts[status_code] = (
-                    status_counts.get(status_code, 0) + 1)
+            total_size += file_size
+            if status_code in valid_codes:
+                status_counts[status_code] = (
+                        status_counts.get(status_code, 0) + 1)
+        except (IndexError, ValueError, KeyError):
+            continue
 
         lines_processed += 1
         if lines_processed % 10 == 0:
