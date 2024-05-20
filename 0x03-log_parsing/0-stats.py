@@ -20,7 +20,7 @@ def print_stats():
 try:
     for line in sys.stdin:
         parts = line.split()
-        if len(parts) < 4:
+        if len(parts) != 9:
             continue
 
         (method, url, protocol, status_code, file_size) = (
@@ -51,6 +51,9 @@ try:
 except KeyboardInterrupt:
     print_stats()
     sys.exit(0)
+
+except Exception as err:
+    pass
 
 finally:
     print(f"File size: {total_size}")
