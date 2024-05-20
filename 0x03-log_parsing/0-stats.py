@@ -50,5 +50,8 @@ except KeyboardInterrupt:
     print_stats()
     sys.exit(0)
 
+except Exception as err:
+    pass
+
 finally:
     print_stats()
