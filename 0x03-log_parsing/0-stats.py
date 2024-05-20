@@ -25,19 +25,22 @@ log_pattern = re.compile(
 
 try:
     for line in sys.stdin:
-        match = log_pattern.match(line)
-        if not match:
-            continue
-        parts = line.split()
-        if len(parts) != 9:
-            continue
+        try:
+            match = log_pattern.match(line)
+            if not match:
+                continue
+            parts = line.split()
+            if len(parts) != 9:
+                continue
 
-        status_code = int(match.group(1))
-        file_size = int(match.group(2))
+            status_code = int(match.group(1))
+            file_size = int(match.group(2))
 
-        total_size += file_size
-        if status_code in valid_codes:
-            status_counts[status_code] = status_counts.get(status_code, 0) + 1
+            total_size += file_size
+            if status_code in valid_codes:
+                status_counts[status_code] = status_counts.get(status_code, 0) + 1
+        except (IndexError, ValueError, Exception):
+            pass
 
         lines_processed += 1
         if lines_processed % 10 == 0:
@@ -45,10 +48,7 @@ try:
 
 except KeyboardInterrupt:
     print_stats()
-    sys.exit(0)
-
-except Exception as err:
-    pass
+    raise
 
 finally:
     print_stats()
