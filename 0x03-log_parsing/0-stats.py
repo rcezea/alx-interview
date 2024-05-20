@@ -47,7 +47,7 @@ try:
         if lines_processed % 10 == 0:
             print_stats()
 
-except (KeyboardInterrupt, EOFError):
+except (KeyboardInterrupt, EOFError, Exception):
     print_stats()
     sys.exit()
 
