@@ -30,7 +30,8 @@ try:
             parts[7],
             parts[8],
         )
-        if method != '"GET' or url != "/projects/260" or protocol != 'HTTP/1.1"':
+        if (method != '"GET'
+                or url != "/projects/260" or protocol != 'HTTP/1.1"'):
             continue
 
         try:
