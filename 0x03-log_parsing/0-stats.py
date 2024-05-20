@@ -37,7 +37,7 @@ try:
             url = parts[5]
             protocol = parts[6]
 
-            if method != '"GET' or url != '/projects/260' or protocol != 'HTTP/1.1"':
+            if method != '"GET' or url != '/projects/260':
                 continue
 
             status_code = int(match.group(1))
@@ -57,6 +57,3 @@ try:
 except (KeyboardInterrupt, EOFError):
     print_stats()
     sys.exit()
-
-finally:
-    print_stats()
