@@ -38,7 +38,7 @@ try:
             protocol = parts[6]
 
             if method != '"GET' or url != '/projects/260':
-                continue
+                sys.exit()
 
             status_code = int(match.group(1))
             file_size = int(match.group(2))
