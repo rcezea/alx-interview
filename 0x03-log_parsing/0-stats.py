@@ -38,7 +38,8 @@ try:
 
             total_size += file_size
             if status_code in valid_codes:
-                status_counts[status_code] = status_counts.get(status_code, 0) + 1
+                status_counts[status_code] = (
+                        status_counts.get(status_code, 0) + 1)
         except (IndexError, ValueError, Exception):
             pass
 
