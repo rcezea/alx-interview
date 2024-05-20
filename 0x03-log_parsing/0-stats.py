@@ -25,7 +25,6 @@ log_pattern = re.compile(
 
 try:
     for line in sys.stdin:
-        input_received = True
         try:
             match = log_pattern.match(line)
             if not match:
@@ -53,7 +52,4 @@ except KeyboardInterrupt:
     raise
 
 finally:
-    if input_received:
-        print_stats()
-    else:
-        sys.exit()
+    print_stats()
