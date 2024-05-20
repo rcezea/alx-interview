@@ -26,7 +26,7 @@ log_pattern = re.compile(
 try:
     for line in sys.stdin:
         try:
-            match = log_pattern.match(line)
+            match = log_pattern.fullmatch(line)
             if not match:
                 continue
             parts = line.split()
