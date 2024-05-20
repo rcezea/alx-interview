@@ -40,6 +40,8 @@ try:
 
         if method != '"GET' or url != '/projects/260':
             sys.exit()
+        if protocol != 'HTTP/1.1"':
+            sys.exit()
 
         try:
             status_code = int(match.group(1))
