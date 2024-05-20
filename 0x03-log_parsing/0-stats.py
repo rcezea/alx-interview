@@ -52,4 +52,5 @@ except KeyboardInterrupt:
     raise
 
 finally:
-    print_stats()
+    if lines_processed > 0:
+        print_stats()
