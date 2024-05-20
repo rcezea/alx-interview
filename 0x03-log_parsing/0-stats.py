@@ -57,3 +57,6 @@ try:
 except (KeyboardInterrupt, EOFError):
     print_stats()
     sys.exit()
+
+finally:
+    print_stats()
