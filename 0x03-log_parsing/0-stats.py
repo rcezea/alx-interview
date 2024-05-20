@@ -11,7 +11,6 @@ lines_processed = 0
 
 def print_stats():
     """print the statistics"""
-    print("hi")
     print(f"File size: {total_size}")
     for code in sorted(status_counts):
         if status_counts[code] > 0:
@@ -47,3 +46,9 @@ try:
 except KeyboardInterrupt:
     print_stats()
     sys.exit(0)
+
+finally:
+    print(f"File size: {total_size}")
+    for code in sorted(status_counts):
+        if status_counts[code] > 0:
+            print(f"{code}: {status_counts[code]}")
