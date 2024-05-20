@@ -40,16 +40,15 @@ try:
             if status_code in valid_codes:
                 status_counts[status_code] = (
                         status_counts.get(status_code, 0) + 1)
-        except (IndexError, ValueError, Exception):
+        except (IndexError, ValueError, KeyError):
             pass
 
         lines_processed += 1
         if lines_processed % 10 == 0:
             print_stats()
 
-except KeyboardInterrupt:
+except (KeyboardInterrupt, EOFError):
     print_stats()
-    raise
 
 finally:
     print_stats()
