@@ -1,4 +1,5 @@
-#!/usr/bin/python3
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 
 """ Utf-8 validation module"""
 
