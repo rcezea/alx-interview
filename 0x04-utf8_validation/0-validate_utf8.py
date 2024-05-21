@@ -8,23 +8,23 @@ def validUTF8(data: List) -> bool:
     """ returns true if validation passes else false"""
     extra_bits = 0
     for i in data:
-        print("loop: ", bin(i))
+        # print("loop: ", bin(i))
         if extra_bits == 0:
-            print("again")
+            # print("again")
             if i >> 5 == 0b110:
                 # print(1)
                 extra_bits = 1
             elif i >> 4 == 0b1110:
                 extra_bits = 2
             elif i >> 3 == 0b11110:
-                print(3)
+                # print(3)
                 extra_bits = 3
             elif i >> 7 == 0b1:
                 return False
         else:
             if i >> 6 != 0b10:
                 return False
-            print(extra_bits)
+            # print(extra_bits)
             extra_bits -= 1
     return extra_bits == 0
 
