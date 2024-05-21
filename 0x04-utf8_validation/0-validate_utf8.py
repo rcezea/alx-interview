@@ -1,10 +1,9 @@
 #!/usr/bin/python3
 
 """ Utf-8 validation module"""
-from typing import List
 
 
-def validUTF8(data: List) -> bool:
+def validUTF8(data):
     """ returns true if validation passes else false"""
     extra_bits = 0
     for i in data:
