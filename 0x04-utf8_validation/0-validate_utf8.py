@@ -7,7 +7,7 @@
 def validUTF8(data):
     """ returns true if validation passes else false"""
     extra_bits = 0
-    if not data or not isinstance(data, list):
+    if not data:
         return False
     for i in data:
         if extra_bits == 0:
