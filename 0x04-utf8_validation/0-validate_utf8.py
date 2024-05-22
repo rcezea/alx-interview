@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-# -*- coding: utf-8 -*-
 
 """ Utf-8 validation module"""
 
@@ -8,8 +7,6 @@ def validUTF8(data):
     """ returns true if validation passes else false"""
     extra_bits = 0
     for i in data:
-        if not isinstance(data[i], int):
-            continue
         if extra_bits == 0:
             if i >> 5 == 0b110:
                 extra_bits = 1
