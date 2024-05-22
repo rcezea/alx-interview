@@ -7,7 +7,7 @@
 def validUTF8(data):
     """ returns true if validation passes else false"""
     extra_bits = 0
-    if not data or not type(data) == list[int]:
+    if not data or not type(data) == list:
         return False
     for i in data:
         if extra_bits == 0:
@@ -24,3 +24,7 @@ def validUTF8(data):
                 return False
             extra_bits -= 1
     return extra_bits == 0
+
+
+data = [65]
+print(validUTF8(data))
