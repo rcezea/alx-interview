@@ -8,10 +8,10 @@ def validUTF8(data):
     """ returns true if validation passes else false"""
     extra_bits = 0
     for i in data:
-        if not type(data[i]) is int:
+        if not isinstance(data[i], int):
             return False
         if extra_bits == 0:
-            if i >> 5 == 0b110:
+            if i >> 5 == 0b110 or i >> 5 == 0b10:
                 extra_bits = 1
             elif i >> 4 == 0b1110:
                 extra_bits = 2
