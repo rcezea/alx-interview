@@ -4,7 +4,7 @@
 """
 
 
-def rotate_2d_matrix(matrix: list) -> None:
+def rotate_2d_matrix(matrix):
     """
     Rotate a nxn matrix 90 degrees
     :param matrix: nxn matrix
