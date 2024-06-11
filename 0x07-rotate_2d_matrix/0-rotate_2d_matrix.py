@@ -10,6 +10,8 @@ def rotate_2d_matrix(matrix):
     :param matrix: nxn matrix
     :return: None
     """
+    if type(matrix) != list:
+        return
     n = len(matrix)
     for i in range(n):
         for j in range(i,n):
