@@ -26,7 +26,7 @@ def isWinner(x, nums):
         "Ben": 0,
     }
     for n in nums:
-        prime = [True for n in range(n + 1)]
+        prime = [True for n in range(1, n + 1)]
         p = 2
         while (p * p) <= n:
             if prime[p]:
@@ -46,5 +46,4 @@ def isWinner(x, nums):
     else:
         return None
 
-
-print("Winner: {}".format(isWinner(5, [2, 5, 1, 4, 3])))
+# print("Winner: {}".format(isWinner(5, [2, 5, 1, 4, 3])))
