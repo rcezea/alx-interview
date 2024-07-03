@@ -20,7 +20,7 @@ def isWinner(x, nums):
     """
     if x != len(nums) or nums is None or x == 0 or nums == []:
         return None
-    # count number of wins per player
+    # initialize wins per player
     players = {
         "Maria": 0,
         "Ben": 0,
@@ -35,14 +35,17 @@ def isWinner(x, nums):
             p += 1
 
         moves = [i for i in range(n + 1) if prime[i]]
-        if len(moves) % 2 != 0:
-            players["Maria"] += 1
-        else:
+
+        # count wins for each player
+        if len(moves) % 2 == 0:
             players["Ben"] += 1
+        else:
+            players["Maria"] += 1
+
+    # check and return the player with more points
     if players["Maria"] > players["Ben"]:
         return "Maria"
     elif players["Ben"] > players["Maria"]:
         return "Ben"
     else:
         return None
-# print("Winner: {}".format(isWinner(5, [2, 5, 1, 4, 3])))
